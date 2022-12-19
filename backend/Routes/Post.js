@@ -1,7 +1,7 @@
 const express = require("express")
 const routes = express.Router()
 
-routes.get("/", (req, res) => {
+routes.post("/save", (req, res) => {
     res.send("hello World")
 })
 
