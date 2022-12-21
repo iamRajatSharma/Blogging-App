@@ -50,8 +50,8 @@ function EditCategory() {
                     <div className="col-lg-8">
                         {
                             deleteMsg ?
-                                <div class="alert alert-success">
-                                    <strong>Record Updated Successfully. !!!</strong>
+                                <div className="alert alert-success">
+                                    <strong>Category Updated Successfully. !!!</strong>
                                 </div>
                                 : null
                         }

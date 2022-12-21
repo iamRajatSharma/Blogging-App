@@ -12,24 +12,24 @@ function Header() {
                     <div className="collapse navbar-collapse" id="collapsibleNavbar">
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <Link className="nav-link" to="/">Home</Link>
+                                <Link className="nav-link text-white" to="/">Home</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/addCategory">Add Category</Link>
+                                <Link className="nav-link text-white" to="/addCategory">Add Category</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/categoryList">Category List</Link>
+                                <Link className="nav-link text-white" to="/categoryList">Category List</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/addPost">Add Post</Link>
+                                <Link className="nav-link text-white" to="/addPost">Add Post</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/postList">Post List</Link>
+                                <Link className="nav-link text-white" to="/postList">Post List</Link>
                             </li>
                         </ul>
                         <ul className="navbar-nav" style={{ position: "absolute", right: " 10px" }}>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/postList">Logout</Link>
+                                <Link className="nav-link text-white" to="/postList">Logout</Link>
                             </li>
                         </ul>
                     </div>

@@ -3,6 +3,7 @@ import { useState } from "react";
 function AddCategory() {
 
     const [name, updatedName] = useState();
+    const [saveMsg, savedMsg] = useState(false);
 
     async function saveCategory() {
         await fetch("http://localhost:12345/category/save", {
@@ -16,7 +17,10 @@ function AddCategory() {
                 return resp.json()
             })
             .then((resp) => {
-                console.log("REcord Saved")
+                savedMsg(true)
+                setTimeout(() => {
+                    savedMsg(false)
+                }, 5000)
             })
     }
 
@@ -26,6 +30,13 @@ function AddCategory() {
                 <div className="row">
                     <div className="col-lg-2"></div>
                     <div className="col-lg-8">
+                        {
+                            saveMsg ?
+                                <div className="alert alert-success">
+                                    <strong>Category Saved Successfully. !!!</strong>
+                                </div>
+                                : null
+                        }
                         <div className="card">
                             <div className="card-header">
                                 <strong>Add New Category</strong>

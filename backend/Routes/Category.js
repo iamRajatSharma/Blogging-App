@@ -5,8 +5,8 @@ const routes = express.Router()
 routes.post("/save", async (req, res) => {
     let todayDate = new Date().toJSON()
     todayDate = todayDate.split("T")[0]
-    let data = await Category(req.body, todayDate)
-    console.log(req.body, todayDate)
+    let data = await Category(req.body)
+    // console.log(req.body, todayDate)
     data = await data.save()
     res.send(data)
 })

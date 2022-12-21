@@ -24,6 +24,7 @@ function App() {
                     <Route path='/postList' element={<PostList />} />
                     <Route path='/signIn' element={<Signin />} />
                     <Route path='/editCategory/:id' element={<EditCategory />} />
+                    <Route path='/editPost/:id' element={<EditPost />} />
                 </Routes>
                 <Footer />
             </BrowserRouter>

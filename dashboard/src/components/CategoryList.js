@@ -41,8 +41,8 @@ function CategoryList() {
                     <div className="col-lg-8">
                         {
                             deleteMsg ?
-                                <div class="alert alert-success">
-                                    <strong>Record Deleted Successfully. !!!</strong>
+                                <div className="alert alert-success">
+                                    <strong>Category Deleted Successfully. !!!</strong>
                                 </div>
                                 : null
                         }
