@@ -1,5 +1,24 @@
+import { useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
 
 function Home() {
+
+    const [post, postList] = useState([]);
+
+    async function fetchAllPosts() {
+        await fetch("http://localhost:12345/post/fetchAll")
+            .then((resp) => {
+                return resp.json()
+            })
+            .then((resp) => {
+                // console.log(post)
+                postList(resp)
+            })
+    }
+
+    useEffect(() => {
+        fetchAllPosts()
+    }, [])
 
     return (
         <div>
@@ -7,38 +26,45 @@ function Home() {
                 <div className="row masonry-wrap">
                     <div className="masonry">
                         <div className="grid-sizer"></div>
-
-                        <article className="masonry__brick entry format-standard" data-aos="fade-up">
-                            <div className="entry__thumb">
-                                <a href="single-standard.html" className="entry__thumb-link">
-                                    <img src="images/thumbs/masonry/lamp-400.jpg"
-                                        srcset="images/thumbs/masonry/lamp-400.jpg 1x, images/thumbs/masonry/lamp-800.jpg 2x" alt="" />
-                                </a>
-                            </div>
-                            <div className="entry__text">
-                                <div className="entry__header">
-                                    <div className="entry__date">
-                                        <a href="single-standard.html">December 15, 2017</a>
+                        {
+                            post.map((data, i) =>
+                                <article key={i} className="masonry__brick entry format-standard" data-aos="fade-up">
+                                    <div className="entry__thumb">
+                                        <Link to="/" className="entry__thumb-link">
+                                            <img src="images/thumbs/masonry/lamp-400.jpg" alt="" />
+                                        </Link>
                                     </div>
-                                    <h1 className="entry__title"><a href="single-standard.html">Just a Standard Format Post.</a></h1>
-                                </div>
-                                <div className="entry__excerpt">
-                                    <p>
-                                        Lorem ipsum Sed eiusmod esse aliqua sed incididunt aliqua incididunt mollit id et sit proident dolor nulla sed commodo est ad minim elit reprehenderit nisi officia aute incididunt velit sint in aliqua...
-                                    </p>
-                                </div>
-                                <div className="entry__meta">
-                                    <span className="entry__meta-links">
-                                        <a href="category.html">Design</a>
-                                        <a href="category.html">Photography</a>
-                                    </span>
-                                </div>
-                            </div>
-                        </article>
+                                    <div className="entry__text">
+                                        <div className="entry__header">
+                                            <div className="entry__date">
+                                                <Link to="/">{data.date}</Link>
+                                            </div>
+                                            <h1 className="entry__title"><Link to={"/post/"+data._id}>{data.title}</Link></h1>
+                                        </div>
+
+                                        <div className="entry__excerpt" style={{textAlign:"justify"}}>
+                                            <p>
+                                                { data.body.substring(1, 150) }
+                                            </p>
+                                        </div>
+                                        <div className="entry__meta">
+                                            <span className="entry__meta-links">
+                                                {
+                                                    data.tags.map((tag, j) =>
+                                                        <Link to="/" key={j}>{tag}</Link>
+                                                    )
+                                                }
+                                            </span>
+                                        </div>
+                                    </div>
+                                </article>
+                            )
+                        }
+
                     </div>
                 </div>
 
-                <div className="row">
+                {/* <div className="row">
                     <div className="col-full">
                         <nav className="pgn">
                             <ul>
@@ -54,10 +80,10 @@ function Home() {
                             </ul>
                         </nav>
                     </div>
-                </div>
+                </div> */}
             </section>
 
-            <section className="s-extra">
+            {/* <section className="s-extra">
                 <div className="row top">
                     <div className="col-eight md-six tab-full popular">
                         <h3>Popular Posts</h3>
@@ -69,7 +95,7 @@ function Home() {
                                 <h5><a href="#0">Visiting Theme Parks Improves Your Health.</a></h5>
                                 <section className="popular__meta">
                                     <span className="popular__author"><span>By</span> <a href="#0"> John Doe</a></span>
-                                    <span className="popular__date"><span>on</span> <time datetime="2017-12-19">Dec 19, 2017</time></span>
+                                    <span className="popular__date"><span>on</span> <time>Dec 19, 2017</time></span>
                                 </section>
                             </article>
                             <article className="col-block popular__post">
@@ -165,7 +191,7 @@ function Home() {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> */}
         </div>
     )
 }

@@ -18,12 +18,13 @@ function App() {
                     <Route path='/' element={<Home />} />
                     <Route path="about" element={<About />} />
                     <Route path="contact" element={<Contact />} />
-                    <Route path="post" element={<Post />} />
+                    <Route path="post/:id" element={<Post />} />
                     <Route path="list" element={<List />} />
                     <Route path="*" element="error" />
                 </Routes>
+                <Footer />
             </BrowserRouter>
-            <Footer />
+
         </div>
     );
 }
