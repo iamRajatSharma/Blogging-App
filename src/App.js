@@ -8,6 +8,7 @@ import About from './components/About';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Post from './components/Post';
 import List from './components/List';
+import Category from './components/Category';
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
                     <Route path="contact" element={<Contact />} />
                     <Route path="post/:id" element={<Post />} />
                     <Route path="list" element={<List />} />
+                    <Route path="category/:name" element={<Category />} />
                     <Route path="*" element="error" />
                 </Routes>
                 <Footer />

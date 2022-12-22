@@ -23,6 +23,12 @@ routes.get("/fetchSignleCategory/:id", async (req, res) => {
 })
 
 
+routes.get("/fetchAllCat", async (req, res) => {
+    let data = await Category.find({}, { _id: 1, name: 1 }).sort({name:1})
+    res.send(data)
+})
+
+
 routes.post("/updateSignleCategory/:id", async (req, res) => {
     let data = await Category.updateOne({ _id: req.params.id }, { $set: req.body })
     res.send(data)

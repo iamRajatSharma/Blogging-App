@@ -11,7 +11,8 @@ app.use("/post", require("./Routes/Post"))
 app.use("/user", require("./Routes/Users"))
 app.use("/category", require("./Routes/Category"))
 app.use("/home", require("./Routes/Home"))
-
+app.use("/contact", require("./Routes/Contact"))
+app.use("/comment", require("./Routes/Comment"))
 
 
 app.listen(process.env.PORT, (err) => {

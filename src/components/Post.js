@@ -3,16 +3,36 @@ import { useParams } from 'react-router-dom';
 
 function Post() {
 
-    const [post, postDetails] = useState();
+    const [post, postDetails] = useState({});
     const urlData = useParams()
+    let post_id = urlData.id
+    const [name, commentName] = useState()
+    const [email, commentEmail] = useState()
+    const [message, commentMessage] = useState()
+
+    async function saveComment() {
+        await fetch("http://localhost:12345/comment/save", {
+            method: "POST",
+            body: JSON.stringify({ name, email, post_id, message }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then((resp) => {
+                return resp.json()
+            })
+            .then((resp) => {
+                console.log(resp)
+            })
+    }
 
     async function fetchSinglePost() {
-        await fetch(`http://localhost:12345/post/fetchSingle/${urlData.id}`)
+        await fetch(`http://localhost:12345/post/fetchSinglePost/${urlData.id}`)
             .then((resp) => {
                 return resp.json(0)
             })
             .then((resp) => {
-                console.log(resp)
+                console.log(resp.title)
                 postDetails(resp)
             })
     }
@@ -65,7 +85,7 @@ function Post() {
                                     </a>
                                 </div>
                                 <div className="s-content__next">
-                                    <a href="#0" rel="next">
+                                    <a href="#0" rel="next" style={{ float: "right" }}>
                                         <span>Next Post</span>
                                         Less Is More
                                     </a>
@@ -77,26 +97,17 @@ function Post() {
 
 
                 <div className="comments-wrap">
-
                     <div id="comments" className="row">
                         <div className="col-full">
-
                             <h3 className="h2">5 Comments</h3>
-
-
                             <ol className="commentlist">
-
                                 <li className="depth-1 comment">
-
                                     <div className="comment__avatar">
                                         <img width="50" height="50" className="avatar" src="images/avatars/user-01.jpg" alt="" />
                                     </div>
-
                                     <div className="comment__content">
-
                                         <div className="comment__info">
                                             <cite>Itachi Uchiha</cite>
-
                                             <div className="comment__meta">
                                                 <time className="comment__time">Dec 16, 2017 @ 23:05</time>
                                                 <a className="reply" href="#0">Reply</a>
@@ -213,23 +224,18 @@ function Post() {
                             </ol>
                             <div className="respond">
                                 <h3 className="h2">Add Comment</h3>
-                                <form name="contactForm" id="contactForm" method="post" action="">
-                                    <fieldset>
-                                        <div className="form-field">
-                                            <input name="cName" type="text" id="cName" className="full-width" placeholder="Your Name" />
-                                        </div>
-                                        <div className="form-field">
-                                            <input name="cEmail" type="text" id="cEmail" className="full-width" placeholder="Your Email" />
-                                        </div>
-                                        <div className="form-field">
-                                            <input name="cWebsite" type="text" id="cWebsite" className="full-width" placeholder="Website" />
-                                        </div>
-                                        <div className="message form-field">
-                                            <textarea name="cMessage" id="cMessage" className="full-width" placeholder="Your Message"></textarea>
-                                        </div>
-                                        <button type="submit" className="submit btn--primary btn--large full-width">Submit</button>
-                                    </fieldset>
-                                </form>
+                                <fieldset>
+                                    <div className="form-field">
+                                        <input name="cName" type="text" id="cName" onChange={(e) => { commentName(e.target.value) }} className="full-width" placeholder="Your Name" />
+                                    </div>
+                                    <div className="form-field">
+                                        <input name="cEmail" type="text" id="cEmail" onChange={(e) => { commentEmail(e.target.value) }} className="full-width" placeholder="Your Email" />
+                                    </div>
+                                    <div className="message form-field">
+                                        <textarea name="cMessage" id="cMessage" onChange={(e) => { commentMessage(e.target.value) }} className="full-width" placeholder="Your Message"></textarea>
+                                    </div>
+                                    <button type="submit" onClick={() => { saveComment() }} className="submit btn--primary btn--large full-width">Submit</button>
+                                </fieldset>
                             </div>
                         </div>
                     </div>

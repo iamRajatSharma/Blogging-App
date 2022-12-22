@@ -1,6 +1,24 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 function Header() {
+
+    const [cat, updatedCat] = useState([])
+
+    async function getAllCat() {
+        await fetch("http://localhost:12345/category/fetchAllCat")
+            .then((resp) => {
+                return resp.json()
+            })
+            .then((resp) => {
+                updatedCat(resp)
+            })
+    }
+
+    useEffect(() => {
+        getAllCat()
+    }, [])
+
     return (
         <>
             <div className="s-pageheader">
@@ -27,13 +45,11 @@ function Header() {
                         </ul>
                         <Link className="header__search-trigger" to=""></Link>
                         <div className="header__search">
-                            {/* <form role="search" method="get" className="header__search-form" action="#"> */}
                             <label>
                                 <span className="hide-content">Search for:</span>
                                 <input type="search" className="search-field" placeholder="Type Keywords" name="s" title="Search for:" autoComplete="off" />
                             </label>
                             <input type="submit" className="search-submit" value="Search" />
-                            {/* </form> */}
                             <Link href="#0" title="Close Search" className="header__overlay-close">Close</Link>
                         </div>
                         <Link className="header__toggle-menu" href="#0" title="Menu"><span>Menu</span></Link>
@@ -42,19 +58,17 @@ function Header() {
                             <ul className="header__nav">
                                 <li><Link to="/" title="">Home</Link></li>
                                 <li className="has-children current">
-                                    <Link href="#0" title="">Categories</Link>
+                                    <Link href="#0">Categories</Link>
                                     <ul className="sub-menu">
-                                        <li><Link href="category.html">Lifestyle</Link></li>
-                                        <li><Link href="category.html">Health</Link></li>
-                                        <li><Link href="category.html">Family</Link></li>
-                                        <li><Link href="category.html">Management</Link></li>
-                                        <li><Link href="category.html">Travel</Link></li>
-                                        <li><Link href="category.html">Work</Link></li>
+                                        {
+                                            cat.map((data, i) =>
+                                                <li key={i}><Link to={"category/" + data.name}>{data.name}</Link></li>
+                                            )
+                                        }
                                     </ul>
                                 </li>
-                                <li><Link to="about" title="">About</Link></li>
-                                <li><Link to="contact" title="">Contact</Link></li>
-                                <li><Link to="signup" title="">Sign Up</Link></li>
+                                <li><Link to="about">About</Link></li>
+                                <li><Link to="contact">Contact</Link></li>
                             </ul>
                             <Link href="#0" title="Close Menu" className="header__overlay-close close-mobile-menu">Close</Link>
                         </nav>
