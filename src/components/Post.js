@@ -32,7 +32,7 @@ function Post() {
                 return resp.json(0)
             })
             .then((resp) => {
-                console.log(resp.title)
+                console.log(resp)
                 postDetails(resp)
             })
     }

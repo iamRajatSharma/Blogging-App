@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
 
 function Header() {
+
+
+    function logout() {
+        localStorage.clear()
+    }
+
     return (
         <>
             <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -27,11 +33,20 @@ function Header() {
                                 <Link className="nav-link text-white" to="/postList">Post List</Link>
                             </li>
                         </ul>
-                        <ul className="navbar-nav" style={{ position: "absolute", right: " 10px" }}>
-                            <li className="nav-item">
-                                <Link className="nav-link text-white" to="/postList">Logout</Link>
-                            </li>
-                        </ul>
+                        {
+                            !localStorage.getItem("users") ?
+                                <ul className="navbar-nav" style={{ position: "absolute", right: " 10px" }}>
+                                    <li className="nav-item">
+                                        <Link className="nav-link text-white" to="/signin">Sign In</Link>
+                                    </li>
+                                </ul>
+                                :
+                                <ul className="navbar-nav" style={{ position: "absolute", right: " 10px" }}>
+                                    <li className="nav-item">
+                                        <Link className="nav-link text-white" onClick={() => { logout() }} to="/signin">Logout</Link>
+                                    </li>
+                                </ul>
+                        }
                     </div>
                 </div>
             </nav>

@@ -3,12 +3,16 @@ const Category = require("../model/Category")
 const routes = express.Router()
 
 routes.post("/save", async (req, res) => {
-    let todayDate = new Date().toJSON()
-    todayDate = todayDate.split("T")[0]
-    let data = await Category(req.body)
-    // console.log(req.body, todayDate)
-    data = await data.save()
-    res.send(data)
+    let check = await Category.findOne({ name: req.body.name })
+    if (check) {
+        res.send({ "msg": "Category Already Exists. !!!", "status": "1", "varient": "danger" })
+    }
+    else {
+        let data = await Category(req.body)
+        data = await data.save()
+        res.status(200).json({ data, status: 0, "msg": "Category Saved Successfully. !!!", "varient": "success" })
+    }
+
 })
 
 routes.get("/fetchall", async (req, res) => {
@@ -24,7 +28,7 @@ routes.get("/fetchSignleCategory/:id", async (req, res) => {
 
 
 routes.get("/fetchAllCat", async (req, res) => {
-    let data = await Category.find({}, { _id: 1, name: 1 }).sort({name:1})
+    let data = await Category.find({}, { _id: 1, name: 1 }).sort({ name: 1 })
     res.send(data)
 })
 

@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 function EditCategory() {
+
+    const navigate = useNavigate()
 
     const [post, postDetails] = useState([]);
     const [title, updatedTitle] = useState();
@@ -20,6 +22,11 @@ function EditCategory() {
     }
 
     useEffect(() => {
+        const ls = localStorage.getItem("users")
+        const loggedIn = JSON.parse(ls)
+        if (loggedIn == null) {
+            navigate("/signin")
+        }
         singlePost()
     }, [])
 

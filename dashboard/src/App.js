@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, Route, Routes, } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Add from './components/Add';
@@ -12,7 +12,9 @@ import EditPost from './components/EditPost';
 import EditCategory from './components/Editcategory';
 
 function App() {
+
     return (
+
         <div>
             <BrowserRouter>
                 <Header />

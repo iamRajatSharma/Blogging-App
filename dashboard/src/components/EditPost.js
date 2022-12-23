@@ -1,8 +1,10 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 
 function EditPost() {
 
+    const navigate = useNavigate()
+    
     const [post, postDetails] = useState([]);
     // const [deleteMessage, deletedMessage] = useState(false);
     const url = useParams();
@@ -19,6 +21,11 @@ function EditPost() {
     }
 
     useEffect(() => {
+        const ls = localStorage.getItem("users")
+        const loggedIn = JSON.parse(ls)
+        if (loggedIn == null) {
+            navigate("/signin")
+        }
         fetchSingleData()
     }, [])
 

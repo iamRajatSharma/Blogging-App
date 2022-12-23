@@ -1,14 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function AddCategory() {
 
+    const navigate = useNavigate()
+    const ls = localStorage.getItem("users")
+    const loggedIn = JSON.parse(ls)
+
     const [name, updatedName] = useState();
     const [saveMsg, savedMsg] = useState(false);
+    const [msg, setMsg] = useState();
+
+    useEffect(() => {
+        if (loggedIn == null) {
+            navigate("/signin")
+        }
+    }, [])
 
     async function saveCategory() {
+        let todayDate = new Date().toJSON()
+        todayDate = todayDate.split("T")[0]
         await fetch("http://localhost:12345/category/save", {
             method: "POST",
-            body: JSON.stringify({ name: name, date: "12/12/2020", add_by: "test@gmail.com" }),
+            body: JSON.stringify({ name: name, date: todayDate, add_by: loggedIn.email }),
             headers: {
                 "Content-Type": "application/json"
             }
@@ -17,6 +31,7 @@ function AddCategory() {
                 return resp.json()
             })
             .then((resp) => {
+                setMsg(resp)
                 savedMsg(true)
                 setTimeout(() => {
                     savedMsg(false)
@@ -32,9 +47,14 @@ function AddCategory() {
                     <div className="col-lg-8">
                         {
                             saveMsg ?
-                                <div className="alert alert-success">
-                                    <strong>Category Saved Successfully. !!!</strong>
-                                </div>
+                                msg.varient == "danger" ?
+                                    <div className="alert alert-danger">
+                                        <strong>{msg.msg}</strong>
+                                    </div>
+                                    :
+                                    <div className="alert alert-success">
+                                        <strong>{msg.msg}</strong>
+                                    </div>
                                 : null
                         }
                         <div className="card">

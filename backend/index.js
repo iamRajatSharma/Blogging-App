@@ -13,7 +13,7 @@ app.use("/category", require("./Routes/Category"))
 app.use("/home", require("./Routes/Home"))
 app.use("/contact", require("./Routes/Contact"))
 app.use("/comment", require("./Routes/Comment"))
-
+app.use("/admin", require("./Routes/Admin"))
 
 app.listen(process.env.PORT, (err) => {
     if (!err) {

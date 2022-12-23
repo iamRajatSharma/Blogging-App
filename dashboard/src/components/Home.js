@@ -1,4 +1,18 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 function Home() {
+
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        const ls = localStorage.getItem("users")
+        const loggedIn = JSON.parse(ls)
+        if (loggedIn == null) {
+            navigate("/signin")
+        }
+    }, [])
+
     return (
         <>
             <div className="container mt-5 mb-5">

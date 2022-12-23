@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Add() {
+
+    const navigate = useNavigate()
+    const ls = localStorage.getItem("users")
+    const loggedIn = JSON.parse(ls)
 
     const [category, categoryList] = useState([])
     const [saveMsg, savedMsg] = useState(false);
@@ -16,22 +21,23 @@ function Add() {
                 return resp.json()
             })
             .then((resp) => {
-                savedMsg(true)
                 categoryList(resp)
-                setTimeout(() => {
-                    savedMsg(false)
-                }, 5000)
             })
     }
 
     useEffect(() => {
+        if (loggedIn == null) {
+            navigate("/signin")
+        }
         fetchAllCategory()
-        savedMsg(false)
+
     }, [])
 
     async function savePost() {
+        let todayDate = new Date().toJSON()
+        todayDate = todayDate.split("T")[0]
         const data = {
-            title, body, tags, category: cat, date: "12/12/2020", add_by: "rajat@gmail.com"
+            title, body, tags, category: cat, date: todayDate, add_by: loggedIn.email
         }
         await fetch("http://localhost:12345/post/save", {
             method: "POST",

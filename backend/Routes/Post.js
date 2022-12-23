@@ -46,9 +46,11 @@ routes.delete("/deleteSingle/:id", async (req, res) => {
 // fetch single post
 routes.get("/fetchSinglePost/:id", async (req, res) => {
     let data = await Posts.findOne({ _id: req.params.id })
+    let comments = await Comment.findOne({ post_id: req.params.id })
     // let prev = await Posts.find({}).sort({ _id: -1 }).limit(1)
     // let next = await Posts.find({}).sort({ _id: 1 }).limit(1)
     // const allPost = { data, prev, next }
+    console.log(comments)
     res.send(data);
 })
 

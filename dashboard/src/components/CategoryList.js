@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function CategoryList() {
+
+    const navigate = useNavigate()
 
     const [data, updatedData] = useState([]);
     const [deleteMsg, deletedMsg] = useState(false);
@@ -17,6 +19,11 @@ function CategoryList() {
     }
 
     useEffect(() => {
+        const ls = localStorage.getItem("users")
+        const loggedIn = JSON.parse(ls)
+        if (loggedIn == null) {
+            navigate("/signin")
+        }
         fetchall()
     }, [])
 

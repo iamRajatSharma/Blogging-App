@@ -34,7 +34,7 @@ function Home() {
                                             <img src="images/thumbs/masonry/lamp-400.jpg" alt="" />
                                         </Link>
                                     </div>
-                                    <div className="entry__text">
+                                    <div className="entry__text" style={{height:"356px"}}>
                                         <div className="entry__header">
                                             <div className="entry__date">
                                                 <Link to="/">{data.date}</Link>
@@ -44,7 +44,7 @@ function Home() {
 
                                         <div className="entry__excerpt" style={{textAlign:"justify"}}>
                                             <p>
-                                                { data.body.substring(1, 150) }
+                                                { data.body.substring(1, 100) }
                                             </p>
                                         </div>
                                         <div className="entry__meta">
