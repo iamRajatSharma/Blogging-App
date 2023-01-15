@@ -30,8 +30,10 @@ function Signin() {
                 return resp.json()
             })
             .then((resp => {
+                console.log(resp)
                 if (resp.name) {
                     let data = { "email": resp.email, "name": resp.name }
+                    
                     localStorage.setItem("users", JSON.stringify(data))
                     navigate("/")
                 }
