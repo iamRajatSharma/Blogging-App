@@ -24,13 +24,17 @@ function Post() {
                 return resp.json()
             })
             .then((resp) => {
+                console.log(resp)
+                commentName('')
+                commentEmail('')
+                commentMessage('')
             })
     }
 
     async function fetchSinglePost() {
         await fetch(`http://localhost:12345/post/fetchSinglePost/${urlData.id}`)
             .then((resp) => {
-                return resp.json(0)
+                return resp.json()
             })
             .then((resp) => {
                 updateComments(resp.comments)
@@ -40,7 +44,7 @@ function Post() {
 
     useEffect(() => {
         fetchSinglePost()
-    }, [])
+    }, [post])
 
 
     return (
@@ -64,17 +68,6 @@ function Post() {
 
                         <p style={{ textAlign: "justify" }}>
                             {post.body}
-                        </p>
-
-                        <p className="s-content__tags">
-                            <span>Post Tags</span>
-
-                            <span className="s-content__tag-list">
-                                <a href="#0">orci</a>
-                                <a href="#0">lectus</a>
-                                <a href="#0">varius</a>
-                                <a href="#0">turpis</a>
-                            </span>
                         </p>
 
                         <div className="s-content__pagenav">
@@ -138,13 +131,13 @@ function Post() {
                                 <h3 className="h2">Add Comment</h3>
                                 <fieldset>
                                     <div className="form-field">
-                                        <input name="cName" type="text" id="cName" onChange={(e) => { commentName(e.target.value) }} className="full-width" placeholder="Your Name" />
+                                        <input name="cName" type="text" id="cName" value={name} onChange={(e) => { commentName(e.target.value) }} className="full-width" placeholder="Your Name" />
                                     </div>
                                     <div className="form-field">
-                                        <input name="cEmail" type="text" id="cEmail" onChange={(e) => { commentEmail(e.target.value) }} className="full-width" placeholder="Your Email" />
+                                        <input name="cEmail" type="text" id="cEmail" value={email} onChange={(e) => { commentEmail(e.target.value) }} className="full-width" placeholder="Your Email" />
                                     </div>
                                     <div className="message form-field">
-                                        <textarea name="cMessage" id="cMessage" onChange={(e) => { commentMessage(e.target.value) }} className="full-width" placeholder="Your Message"></textarea>
+                                        <textarea name="cMessage" id="cMessage" value={message} onChange={(e) => { commentMessage(e.target.value) }} className="full-width" placeholder="Your Message"></textarea>
                                     </div>
                                     <button type="submit" onClick={() => { saveComment() }} className="submit btn--primary btn--large full-width">Submit</button>
                                 </fieldset>
