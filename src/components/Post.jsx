@@ -10,6 +10,7 @@ function Post() {
     const [email, commentEmail] = useState()
     const [message, commentMessage] = useState()
     const [comments, updateComments] = useState([]);
+    const [commentStatus, updateCommentStatus] = useState(false)
 
     async function saveComment() {
         const todayDate = new Date();
@@ -28,6 +29,10 @@ function Post() {
                 commentName('')
                 commentEmail('')
                 commentMessage('')
+                updateCommentStatus(true)
+                setTimeout(() => {
+                    updateCommentStatus(false)
+                }, 5000)
             })
     }
 
@@ -65,11 +70,9 @@ function Post() {
                     </div>
 
                     <div className="col-full s-content__main">
-
                         <p style={{ textAlign: "justify" }}>
                             {post.body}
                         </p>
-
                         <div className="s-content__pagenav">
                             <div className="s-content__nav">
                                 <div className="s-content__prev">
@@ -88,6 +91,14 @@ function Post() {
                         </div>
                     </div>
                 </article>
+
+                {
+                    commentStatus ?
+                        <div style={{ width: "300px", padding: 5, backgroundColor: "#df6b6b", color: "black", borderRadius: 5, textAlign: "center", fontSize: 22, position: "fixed", right: "5px", top: "10px" }}>
+                            <strong className="text-center">Thanks for comment</strong>
+                        </div>
+                        : null
+                }
 
 
                 <div className="comments-wrap">
