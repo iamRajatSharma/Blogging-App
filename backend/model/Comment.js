@@ -15,6 +15,9 @@ const CommentSchema = mongoose.Schema({
     message: {
         type: String,
         required: true
+    },
+    todayDate: {
+        type: String
     }
 })
 module.exports = mongoose.model("comments", CommentSchema);

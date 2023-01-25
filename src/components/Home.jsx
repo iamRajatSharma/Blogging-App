@@ -30,14 +30,14 @@ function Home() {
                             post.map((data, i) =>
                                 <article key={i} className="masonry__brick entry format-standard" data-aos="fade-up">
                                     <div className="entry__thumb">
-                                        <Link to="/" className="entry__thumb-link">
+                                        <Link to={"/post/"+data._id} className="entry__thumb-link">
                                             <img src="images/thumbs/masonry/lamp-400.jpg" alt="" />
                                         </Link>
                                     </div>
                                     <div className="entry__text" style={{height:"356px"}}>
                                         <div className="entry__header">
                                             <div className="entry__date">
-                                                <Link to="/">{data.date}</Link>
+                                                <Link to={"/post/"+data._id}>{data.date}</Link>
                                             </div>
                                             <h1 className="entry__title"><Link to={"/post/"+data._id}>{data.title}</Link></h1>
                                         </div>
