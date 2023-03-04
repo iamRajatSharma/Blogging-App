@@ -73,22 +73,6 @@ function Post() {
                         <p style={{ textAlign: "justify" }}>
                             {post.body}
                         </p>
-                        <div className="s-content__pagenav">
-                            <div className="s-content__nav">
-                                <div className="s-content__prev">
-                                    <a href="#0" rel="prev">
-                                        <span>Previous Post</span>
-                                        Tips on Minimalist Design
-                                    </a>
-                                </div>
-                                <div className="s-content__next">
-                                    <a href="#0" rel="next" style={{ float: "right" }}>
-                                        <span>Next Post</span>
-                                        Less Is More
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </article>
 

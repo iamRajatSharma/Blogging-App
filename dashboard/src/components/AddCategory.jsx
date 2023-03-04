@@ -36,6 +36,7 @@ function AddCategory() {
                 setTimeout(() => {
                     savedMsg(false)
                 }, 5000)
+                updatedName("")
             })
     }
 
@@ -65,7 +66,8 @@ function AddCategory() {
                                 <div className="row">
                                     <div className="form-group col-lg-12">
                                         <label className="form-label">Category Name</label>
-                                        <input type="text" className="form-control" placeholder="Category Name" onChange={(e) => updatedName(e.target.value)} />
+                                        <input type="text" className="form-control" placeholder="Category Name" value={name
+                                        } onChange={(e) => updatedName(e.target.value)} />
                                     </div>
                                     <div className="form-group col-lg-12 mt-3 text-center">
                                         <button onClick={() => { saveCategory() }} type="submit" className="btn btn-primary mt-3">Save Category</button>

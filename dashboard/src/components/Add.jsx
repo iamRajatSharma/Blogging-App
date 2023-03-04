@@ -54,6 +54,10 @@ function Add() {
                 setTimeout(() => {
                     savedMsg(false)
                 }, 5000)
+                updatedTitle("")
+                updatedBody("")
+                updatedTags("")
+                updatedCat("")
             })
     }
 
@@ -78,7 +82,7 @@ function Add() {
                                 <div className="row">
                                     <div className="form-group col-lg-6">
                                         <label className="form-label">Title</label>
-                                        <input type="text" className="form-control" placeholder="Enter Title" onChange={(e) => updatedTitle(e.target.value)} />
+                                        <input type="text" className="form-control" key={title} placeholder="Enter Title" onChange={(e) => updatedTitle(e.target.value)} />
                                     </div>
                                     <div className="form-group col-lg-6">
                                         <label className="form-label">Select Category</label>
@@ -93,7 +97,7 @@ function Add() {
                                     </div>
                                     <div className="form-group col-lg-6 mt-3">
                                         <label className="form-label">Tags</label>
-                                        <input type="text" className="form-control" placeholder="Enter Tags" onChange={(e) => updatedTags(e.target.value)} />
+                                        <input type="text" className="form-control" key={tags} placeholder="Enter Tags" onChange={(e) => updatedTags(e.target.value)} />
                                     </div>
                                     <div className="form-group col-lg-6 mt-3">
                                         <label className="form-label">Upload Image</label>
@@ -101,7 +105,7 @@ function Add() {
                                     </div>
                                     <div className="form-group col-lg-12 mt-3">
                                         <label className="form-label">Post Body</label>
-                                        <textarea className="form-control" placeholder="Enter Post Body" onChange={(e) => updatedBody(e.target.value)} />
+                                        <textarea className="form-control" key={body} placeholder="Enter Post Body" onChange={(e) => updatedBody(e.target.value)} />
                                     </div>
                                     <div className="form-group col-lg-12 mt-3 text-center">
                                         <button type="submit" onClick={() => { savePost() }} className="btn btn-primary mt-3">Save Post</button>

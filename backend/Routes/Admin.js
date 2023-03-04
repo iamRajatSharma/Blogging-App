@@ -4,7 +4,7 @@ const Admin = require("../model/Admin")
 
 // admin logged in
 routes.post("/login", async (req, res) => {
-    let data = await Admin.findOne({ email: "admin@blog.in" })
+    let data = await Admin.findOne({ email: "admin@gmail.com" })
     if (data) {
         if (data.password == "12345") {
             res.send(data)
