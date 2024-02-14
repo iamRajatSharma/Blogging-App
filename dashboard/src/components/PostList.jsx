@@ -46,14 +46,18 @@ function PostList() {
 
     async function search(e) {
         console.log(e)
-        await fetch(`http://localhost:12345/post/searchData/${e}`)
-            .then((resp) => {
-                return resp.json()
-            })
-            .then((resp) => {
-                console.log(resp)
-                postList(resp)
-            })
+        if (e.length > 0) {
+            await fetch(`http://localhost:12345/post/searchData/${e}`)
+                .then((resp) => {
+                    return resp.json()
+                })
+                .then((resp) => {
+                    console.log(resp)
+                    postList(resp)
+                })
+        } else {
+            fetchAllData()
+        }
     }
 
     return (

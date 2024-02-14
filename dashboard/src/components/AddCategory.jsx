@@ -18,7 +18,7 @@ function AddCategory() {
     }, [])
 
     async function saveCategory() {
-        let todayDate = new Date().toJSON()
+        let todayDate = new Date().toJSON();
         todayDate = todayDate.split("T")[0]
         await fetch("http://localhost:12345/category/save", {
             method: "POST",

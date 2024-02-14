@@ -8,12 +8,14 @@ function Add() {
     const loggedIn = JSON.parse(ls)
 
     const [category, categoryList] = useState([])
-    const [saveMsg, savedMsg] = useState(false);
+    const [saveMsg, savedMsg] = useState();
+    const [msg, setMsg] = useState(false);
 
     const [title, updatedTitle] = useState();
     const [body, updatedBody] = useState();
     const [tags, updatedTags] = useState();
     const [cat, updatedCat] = useState();
+
 
     async function fetchAllCategory() {
         await fetch("http://localhost:12345/category/fetchall")
@@ -37,8 +39,9 @@ function Add() {
         let todayDate = new Date().toJSON()
         todayDate = todayDate.split("T")[0]
         const data = {
-            title, body, tags, category: cat, date: todayDate, add_by: loggedIn.email
+            title: title, body: body, tags: tags, category: cat, date: todayDate, add_by: loggedIn.email
         }
+        console.log(data);
         await fetch("http://localhost:12345/post/save", {
             method: "POST",
             body: JSON.stringify(data),
@@ -50,6 +53,7 @@ function Add() {
                 return resp.json()
             })
             .then((resp) => {
+                setMsg(resp)
                 savedMsg(true)
                 setTimeout(() => {
                     savedMsg(false)
@@ -69,9 +73,14 @@ function Add() {
                     <div className="col-lg-8">
                         {
                             saveMsg ?
-                                <div className="alert alert-success">
-                                    <strong>Post Saved Successfully. !!!</strong>
-                                </div>
+                                msg.varient == "danger" ?
+                                    <div className="alert alert-danger">
+                                        <strong>{msg.msg}</strong>
+                                    </div>
+                                    :
+                                    <div className="alert alert-success">
+                                        <strong>{msg.msg}</strong>
+                                    </div>
                                 : null
                         }
                         <div className="card">
@@ -82,7 +91,7 @@ function Add() {
                                 <div className="row">
                                     <div className="form-group col-lg-6">
                                         <label className="form-label">Title</label>
-                                        <input type="text" className="form-control" key={title} placeholder="Enter Title" onChange={(e) => updatedTitle(e.target.value)} />
+                                        <input type="text" className="form-control" value={title} defaultValue={title} placeholder="Enter Title" onChange={(e) => updatedTitle(e.target.value)} />
                                     </div>
                                     <div className="form-group col-lg-6">
                                         <label className="form-label">Select Category</label>
@@ -97,7 +106,7 @@ function Add() {
                                     </div>
                                     <div className="form-group col-lg-6 mt-3">
                                         <label className="form-label">Tags</label>
-                                        <input type="text" className="form-control" key={tags} placeholder="Enter Tags" onChange={(e) => updatedTags(e.target.value)} />
+                                        <input type="text" className="form-control" value={tags} defaultValue={tags} placeholder="Enter Tags" onChange={(e) => updatedTags(e.target.value)} />
                                     </div>
                                     <div className="form-group col-lg-6 mt-3">
                                         <label className="form-label">Upload Image</label>
@@ -105,7 +114,7 @@ function Add() {
                                     </div>
                                     <div className="form-group col-lg-12 mt-3">
                                         <label className="form-label">Post Body</label>
-                                        <textarea className="form-control" key={body} placeholder="Enter Post Body" onChange={(e) => updatedBody(e.target.value)} />
+                                        <textarea className="form-control" value={body} defaultValue={body} placeholder="Enter Post Body" onChange={(e) => updatedBody(e.target.value)} />
                                     </div>
                                     <div className="form-group col-lg-12 mt-3 text-center">
                                         <button type="submit" onClick={() => { savePost() }} className="btn btn-primary mt-3">Save Post</button>

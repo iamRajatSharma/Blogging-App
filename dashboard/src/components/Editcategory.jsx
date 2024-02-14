@@ -8,6 +8,9 @@ function EditCategory() {
     const [post, postDetails] = useState([]);
     const [title, updatedTitle] = useState();
     const [deleteMsg, deletedMsg] = useState(false);
+    const [saveMsg, savedMsg] = useState(false);
+    const [msg, setMsg] = useState();
+
     const params = useParams()
     const id = params.id;
 
@@ -42,7 +45,8 @@ function EditCategory() {
                 return resp.json()
             })
             .then((resp) => {
-                deletedMsg(true)
+                setMsg(resp)
+                savedMsg(true)
                 setTimeout(() => {
                     deletedMsg(false)
                 }, 5000)
@@ -56,10 +60,15 @@ function EditCategory() {
                     <div className="col-lg-2"></div>
                     <div className="col-lg-8">
                         {
-                            deleteMsg ?
-                                <div className="alert alert-success">
-                                    <strong>Category Updated Successfully. !!!</strong>
-                                </div>
+                            saveMsg ?
+                                msg.varient == "danger" ?
+                                    <div className="alert alert-danger">
+                                        <strong>{msg.msg}</strong>
+                                    </div>
+                                    :
+                                    <div className="alert alert-success">
+                                        <strong>{msg.msg}</strong>
+                                    </div>
                                 : null
                         }
                         <div className="card">

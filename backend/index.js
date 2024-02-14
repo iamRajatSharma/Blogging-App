@@ -3,10 +3,14 @@ const app = express();
 require("./Database/Conn")
 require("dotenv").config()
 const cors = require("cors")
+var bodyParser = require('body-parser')
 
 
-app.use(express.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 app.use(cors())
+
+
 app.use("/post", require("./Routes/Post"))
 app.use("/user", require("./Routes/Users"))
 app.use("/category", require("./Routes/Category"))

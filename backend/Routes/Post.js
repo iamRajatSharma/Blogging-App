@@ -1,14 +1,20 @@
 const express = require("express");
-const Category = require("../model/Category");
 const Posts = require("../model/Posts");
 const routes = express.Router()
 const Comment = require("../model/Comment")
 
 // save new post
 routes.post("/save", async (req, res) => {
+    console.log(req.body);
+    if (req.body.title == undefined || req.body.body == undefined || req.body.tags == undefined || req.body.category == undefined) {
+        return res.send({ msg: "All fields required", "status": "1", "varient": "danger" })
+    }
     let data = await Posts(req.body)
     data = await data.save()
-    res.send(data);
+    if (data) {
+        return res.status(200).json({ data, status: 0, "msg": "Post Saved Successfully. !!!", "varient": "success" })
+    }
+    return res.status(400).json({ status: 1, "msg": "Interbal Server Error", "varient": "danger" })
 })
 
 // fetch all post

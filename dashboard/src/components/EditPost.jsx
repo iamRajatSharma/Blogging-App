@@ -4,8 +4,11 @@ import React, { useState, useEffect } from "react";
 function EditPost() {
 
     const navigate = useNavigate()
-    
+
     const [post, postDetails] = useState([]);
+    const [saveMsg, savedMsg] = useState();
+    const [msg, setMsg] = useState(false);
+
     // const [deleteMessage, deletedMessage] = useState(false);
     const url = useParams();
     const id = url.id
@@ -47,6 +50,18 @@ function EditPost() {
                 <div className="row">
                     <div className="col-lg-2"></div>
                     <div className="col-lg-8">
+                        {
+                            saveMsg ?
+                                msg.varient == "danger" ?
+                                    <div className="alert alert-danger">
+                                        <strong>{msg.msg}</strong>
+                                    </div>
+                                    :
+                                    <div className="alert alert-success">
+                                        <strong>{msg.msg}</strong>
+                                    </div>
+                                : null
+                        }
                         <div className="card">
                             <div className="card-header">
                                 <strong>Add New Post</strong>
